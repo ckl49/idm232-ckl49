@@ -1,0 +1,324 @@
+@import url(https://use.typekit.net/sky6lwg.css);
+
+@font-face {
+    font-family: "SF Pro";
+    src: url("/fonts/SF-Pro-1ttf.ttf") format("ttf");
+    font-weight: 100 900; 
+  }
+
+:root {
+    --near-black: rgba(8, 2, 9, 1);
+    --light-yellow: rgba(254, 236, 188, 1);
+    --off-white: rgba(243, 243, 231, 1);
+    --off-white-100: rgba(247, 247, 236, 1);
+    --dark-green: rgba(56, 66, 57, 1);
+    --dark-gray: rgba(35, 42, 36, 1);
+    --light-gray: rgba(128, 128, 128, 1);
+    --mustard: rgba(235, 168, 1, 1);
+
+    --gradient-yellow-green: linear-gradient(var(--mustard), var(--dark-green));
+
+    --padding-small: 12px;
+    --padding-large: 30px;
+    --padding-med: 24px;
+    --padding-xl: 120px;
+
+    --gap-small: 16px;
+    --gap-med: 30px;
+    --gap-large: 60px;
+    --gap-xl: 90px;
+
+    --border-radius: 8px;
+    --button-radius: 30px;
+
+    --heading-font: 'Firula', 'Times New Roman', 'Serif';
+    --body-font: 'SF Pro', 'Inter', 'Sans-serif';
+}
+
+* {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    padding-bottom: 60px;
+    background-color: var(--off-white-100);
+}
+
+h1 {
+    font-size: 72px;
+    font-family: var(--heading-font);
+    font-weight: 500;
+    margin: 0;
+    line-height: 5rem;
+}
+
+h2 {
+    font-size: 48px;
+    font-family: var(--heading-font);
+    margin: 0;
+    font-weight: 500;
+}
+
+p {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-family: var(--body-font);
+    margin: 0;
+}
+
+button {
+    font-size: 18px;
+    font-family: var(--body-font);
+    background-color: var(--mustard);
+    padding: var(--padding-small) var(--padding-med);
+    border-radius: var(--button-radius);
+    border: none;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.25);
+    font-weight: 400;
+    width: fit-content;
+}
+
+img {
+    border-radius: var(--border-radius);
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding: var(--padding-med) var(--padding-large);
+    background-color: transparent;
+    align-items: center;
+}
+
+a {
+    font-family: var(--body-font);
+}
+
+nav > ul {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    padding: 0 var(--padding-large);
+    margin: 0;
+    gap: 1.5rem;
+}
+
+nav > ul > li {
+    display: flex;
+    gap: 1rem;
+    font-family: var(--body-font);
+    font-size: 20px;
+}
+
+div {
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    display: flex;
+    padding: 60px 30px 24px 30px;
+    justify-content: space-between;
+    align-items: end;
+    background-color: var(--dark-green);
+    width: 100%;
+    height: auto;
+    gap: var(--gap-large);
+}
+
+footer > nav > ul > li > a {
+    color: var(--off-white);
+    text-decoration: none;
+}
+
+footer > p {
+    color: var(--off-white);
+    width: auto;
+}
+
+footer > nav, ul {
+    width: fit-content;
+    padding: 0;
+    justify-content: space-between;
+}
+
+.subheading {
+    font-size: 24px;
+    line-height: 1.25rem;
+    font-family: var(--body-font);
+    font-weight: 300;
+}
+
+.hero-section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    justify-content: center;
+    gap: var(--gap-large);
+    border: 1px solid var(--dark-gray);
+    border-right: 0;
+    border-left: 0;
+    color: var(--off-white-100);
+
+}
+
+.hero-section > div {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-med);
+    align-content: center;
+    text-align: center;
+    padding: var(--padding-xl);
+    background-image: url(/images/cooking-hero.jpeg);
+    background-size: cover; /* or contain, or auto */
+
+}
+
+.hero-section > div > div {
+    gap: var(--gap-small);
+    align-items: center;
+}
+
+.hero-section > div > img {
+    width: 100%;
+    height: auto;
+}
+
+.section-carousel {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-small);
+}
+
+.section-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    align-self: stretch;
+    padding: var(--padding-med)  var(--padding-large) 0 var(--padding-med);
+}
+
+.recipe-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-med);
+}
+
+.div-carousel {
+    display: flex;
+    flex-direction: row;
+    overflow: auto;
+    scroll-behavior: smooth;
+    padding-left: var(--padding-med);
+    gap: var(--gap-med);
+}
+
+.recipe-card {
+    padding: var(--padding-small);
+    background-color: var(--off-white);
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-med);
+}
+
+.image-and-recipe-title {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-small);
+    background-color: transparent;
+}
+
+.recipe-card-title {
+    background-color: transparent;
+}
+
+.recipe-name {
+    background-color: transparent;
+    font-size: 28px;
+    font-weight: 500;
+    font-style: normal;
+    line-height: normal;
+}
+
+.recipe-second-line {
+    background-color: transparent;
+    color: var(--light-gray);
+    font-size: 20px;
+    font-weight: 400;
+    font-style: normal;
+    line-height: normal;
+}
+
+.tags-line {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    background-color: transparent;
+}
+
+.recipe-tag {
+    background-color: transparent;
+    padding: 6px 16px;
+    border: 1px solid var(--dark-green);
+    border-radius: var(--button-radius);
+}
+
+.recipe-tag > p {
+    background-color: transparent;
+    color: var(--dark-green);
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+#logomark-yellow {
+    fill: var(--mustard);
+}
+
+#logo-white {
+    fill: var(--off-white);
+}
+
+
+
+
+
+
+
+
+/* TABLET */
+
+@media screen and (max-width= 769px) {
+    
+h1 {
+    font-size: 72px;
+}
+
+h2 {
+    font-size: 36px;
+}
+
+p {
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+.subheading {
+    font-size: 24px;
+    line-height: 1.25rem;
+}
+
+}
