@@ -14,6 +14,7 @@
     --dark-green: rgba(56, 66, 57, 1);
     --dark-gray: rgba(35, 42, 36, 1);
     --light-gray: rgba(128, 128, 128, 1);
+    --lighter-gray: rgb(209, 209, 209);
     --mustard: rgba(235, 168, 1, 1);
 
     --gradient-yellow-green: linear-gradient(var(--mustard), var(--dark-green));
@@ -21,6 +22,7 @@
     --padding-small: 12px;
     --padding-large: 30px;
     --padding-med: 24px;
+    --padding-med-lar: 60px;
     --padding-xl: 120px;
 
     --gap-small: 16px;
@@ -30,6 +32,8 @@
 
     --border-radius: 8px;
     --button-radius: 30px;
+
+    --rhythm: 60px;
 
     --heading-font: 'Firula', 'Times New Roman', 'Serif';
     --body-font: 'SF Pro', 'Inter', 'Sans-serif';
@@ -43,8 +47,7 @@
 }
 
 main {
-    padding-bottom: 60px;
-    background-color: var(--off-white-100);
+    background-color: var(--off-white);
 }
 
 h1 {
@@ -52,21 +55,30 @@ h1 {
     font-family: var(--heading-font);
     font-weight: 500;
     margin: 0;
-    line-height: 5rem;
+    line-height: 3rem;   
 }
 
 h2 {
-    font-size: 48px;
+    font-size: 56px;
     font-family: var(--heading-font);
     margin: 0;
     font-weight: 500;
+    line-height: 4rem;
 }
 
-p {
+h3 {
+    font-family: var(--heading-font);
+    margin: 0;
+    font-size: 40px;
+    font-weight: 500;
+}
+
+p, ul, li {
     font-size: 1rem;
     line-height: 1.5rem;
     font-family: var(--body-font);
     margin: 0;
+    
 }
 
 button {
@@ -81,8 +93,25 @@ button {
     width: fit-content;
 }
 
+button:hover {
+    background-color: var(--dark-green);
+    color: var(--mustard);
+    border: 1px solid var(--mustard);
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+button:active {
+    background-color: var(--dark-gray);
+    color: var(--off-white);
+    border: 1px solid var(--off-white);
+}
+
 img {
     border-radius: var(--border-radius);
+    width: 100%;
+    height: auto;
+    object-fit: cover;
 }
 
 nav {
@@ -91,8 +120,13 @@ nav {
     justify-content: space-between;
     width: 100%;
     padding: var(--padding-med) var(--padding-large);
-    background-color: transparent;
+    background-color: var(--off-white);
     align-items: center;
+    position: sticky;
+}
+
+footer > nav {
+    background: transparent;
 }
 
 a {
@@ -147,11 +181,27 @@ footer > nav, ul {
     justify-content: space-between;
 }
 
+a {
+    color: var(--dark-green);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--mustard);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .subheading {
     font-size: 24px;
-    line-height: 1.25rem;
+    line-height: 1.5rem;
     font-family: var(--body-font);
     font-weight: 300;
+}
+
+.hero-text {
+    font-size:96px;
+    line-height: 6rem;
 }
 
 .hero-section {
@@ -160,12 +210,11 @@ footer > nav, ul {
     width: 100%;
     height: auto;
     justify-content: center;
-    gap: var(--gap-large);
-    border: 1px solid var(--dark-gray);
+    gap: var(--gap-med);
+    /* border: 1px solid var(--dark-gray); */
     border-right: 0;
     border-left: 0;
     color: var(--off-white-100);
-
 }
 
 .hero-section > div {
@@ -174,7 +223,7 @@ footer > nav, ul {
     justify-content: center;
     display: flex;
     flex-direction: column;
-    gap: var(--gap-med);
+    gap: var(--gap-large);
     align-content: center;
     text-align: center;
     padding: var(--padding-xl);
@@ -184,7 +233,7 @@ footer > nav, ul {
 }
 
 .hero-section > div > div {
-    gap: var(--gap-small);
+    gap: var(--gap-med);
     align-items: center;
 }
 
@@ -196,7 +245,11 @@ footer > nav, ul {
 .section-carousel {
     display: flex;
     flex-direction: column;
-    gap: var(--gap-small);
+    gap: var(--gap-med);
+    padding: var(--padding-med-lar) var(--padding-med);
+    overflow: hidden;
+    width: 100%;
+    height: auto;
 }
 
 .section-header {
@@ -206,7 +259,10 @@ footer > nav, ul {
     justify-content: space-between;
     gap: 1.5rem;
     align-self: stretch;
-    padding: var(--padding-med)  var(--padding-large) 0 var(--padding-med);
+}
+
+.section-header > div {
+    gap: 12px;
 }
 
 .recipe-card {
@@ -220,17 +276,29 @@ footer > nav, ul {
     flex-direction: row;
     overflow: auto;
     scroll-behavior: smooth;
-    padding-left: var(--padding-med);
     gap: var(--gap-med);
+    width: fit-content;
+    height: auto;
+    
 }
 
 .recipe-card {
     padding: var(--padding-small);
-    background-color: var(--off-white);
+    background-color: var(--off-white-100);
     border-radius: var(--border-radius);
     display: flex;
     flex-direction: column;
     gap: var(--gap-med);
+    border: 1px solid var(--light-gray);
+    width: 402px;
+    height: auto;
+}
+
+/* carousel not working right issue with the overflow property */
+
+.recipe-card:hover {
+    border: 1px solid var(--dark-green);
+    background-color: var(--off-white);
 }
 
 .image-and-recipe-title {
@@ -242,11 +310,14 @@ footer > nav, ul {
 
 .recipe-card-title {
     background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
 .recipe-name {
     background-color: transparent;
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 500;
     font-style: normal;
     line-height: normal;
@@ -255,8 +326,8 @@ footer > nav, ul {
 .recipe-second-line {
     background-color: transparent;
     color: var(--light-gray);
-    font-size: 20px;
-    font-weight: 400;
+    font-size: 18px;
+    font-weight: 300;
     font-style: normal;
     line-height: normal;
 }
@@ -270,7 +341,7 @@ footer > nav, ul {
 
 .recipe-tag {
     background-color: transparent;
-    padding: 6px 16px;
+    padding: 4px 8px;
     border: 1px solid var(--dark-green);
     border-radius: var(--button-radius);
 }
@@ -278,11 +349,189 @@ footer > nav, ul {
 .recipe-tag > p {
     background-color: transparent;
     color: var(--dark-green);
-    font-size: 18px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
 }
+
+.display-h2 {
+    font-size: 64px;
+    width: 100%;
+    height: auto;
+    line-height: 4.5rem;
+}
+
+.second-hero-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: var(--gap-large);
+    padding: var(--padding-med-lar) var(--padding-large);
+    border: 1px solid var(--dark-green);
+    border-left: 0;
+    border-right: 0;
+}
+
+.second-hero-section > div {
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--gap-med);
+    width: 50vw;
+    height: auto;
+}
+
+.second-hero-section > img {
+    width: 50vw;
+    height: auto;
+}
+
+.second-hero-section > div > div {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-small);
+}
+
+.recipe-page-h1 {
+    font-family: var(--body-font);
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.recipe-page-hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* padding: 24px 30px; */
+    padding-top: 30px;
+    gap: var(--gap-med)
+}
+
+.recipe-page-title {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-small);
+}
+
+.recipe-page-hero-div {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-med);
+}
+
+.recipe-page-ingredients-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.ingredients-div {
+    display: flex;
+    flex-direction: column;
+}
+
+.ingredients-list > ul {
+    margin-left: var(--padding-med);
+}
+
+.ingredients-list > ul > li {
+    padding: 2px 0;
+}
+
+.ninety-percent-wrapper {
+    width: 900px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--rhythm);
+}
+
+.main-center {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    border: 1px solid #000;
+    border-bottom: 0;
+    border-left: 0;
+    border-right: 0;
+}
+
+.video-tip-div {
+    padding: var(--padding-med);
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-small);
+    background-color: var(--dark-green);
+    border-radius: var(--border-radius);
+    color: var(--off-white);
+
+    p {
+        color: var(--lighter-gray);
+    }
+}
+
+.step-title {
+    font-family: var(--body-font);
+    font-size: 32px;
+    font-weight: 600;
+}
+
+.step-details{
+    display: flex;
+    gap: var(--gap-small);
+    flex-direction: column;
+}
+
+.steps {
+    gap: var(--gap-med);
+}
+
+.step-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-large);
+}
+
+.kitchen-tool-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-small);
+}
+
+.all-recipes-section {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--gap-med);
+    /* justify-content: space-between; */
+}
+
+
+.all-recipes-wrapper {
+    width: 90%;
+    padding-top: 60px;
+    gap: var(--gap-med);
+    padding-bottom: var(--padding-large);
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-small);
+}
+
+.center-content {
+    justify-content: center;
+    display: flex;
+    border-top: 1px solid #000;
+    flex-direction: column;
+}
+
+
 
 #logomark-yellow {
     fill: var(--mustard);
@@ -291,6 +540,8 @@ footer > nav, ul {
 #logo-white {
     fill: var(--off-white);
 }
+
+
 
 
 
