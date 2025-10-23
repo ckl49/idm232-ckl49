@@ -87,12 +87,13 @@ button {
     font-weight: 400;
     width: fit-content;
     box-sizing: border-box;
+    border: 1px solid transparent;
 }
 
 button:hover {
     background-color: var(--dark-green);
     color: var(--mustard);
-    border: 1px solid var(--mustard);
+    border: 1px solid inset var(--mustard);
     transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
     cursor: pointer;
     box-sizing: border-box;
@@ -216,6 +217,7 @@ a:hover {
     font-weight: 400;
     width: fit-content;
     box-sizing: border-box;
+    border: 1px solid transparent;
 }
 
 .anchor-button:hover {
