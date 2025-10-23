@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>General Tso's Chicken</title>
     <link rel="stylesheet" href="styles/styles.css">
+    <script src="script/script.js"></script>
+
 </head>
 <body>
-    <nav>
+    <nav class="horizontal-nav-menu">
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="recipes.html">Recipes</a></li>
@@ -17,11 +19,44 @@
                 </object>
             </a>
         <ul>
-            <li><a href="search.html">Search</a></li>
+            <li><a href="recipes.html">Search</a></li>
             <li><a href="help.html">Help</a></li>
         </ul>
     </nav>
-
+    <nav class="mobile-menu">
+        <div class="div-row">
+            <div>
+                <ul class="logo">
+                    <li>
+                        <a href="index.html">
+                            <object data="images/logos/full_logo.svg" type="image/svg+xml" width="109" height="39">
+                            </object>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="hamburger">
+                <div class="row">
+                    <label for="toggle-checkbox" class="menu-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"><path fill="#000" d="M4 18q-.425 0-.712-.288T3 17t.288-.712T4 16h16q.425 0 .713.288T21 17t-.288.713T20 18zm0-5q-.425 0-.712-.288T3 12t.288-.712T4 11h16q.425 0 .713.288T21 12t-.288.713T20 13zm0-5q-.425 0-.712-.288T3 7t.288-.712T4 6h16q.425 0 .713.288T21 7t-.288.713T20 8z" stroke-width="0.5" stroke="#000"/></svg>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="overlay-nav-menu">
+            <ul class="overlay-nav-ul">
+                <li><a href="index.html">
+                    <object data="images/logos/full_logo.svg" type="image/svg+xml" width="109" height="39">
+                    </object>
+                </a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="recipes.html">Recipes</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="help.html">Help</a></li>
+                <li class="return"><label for=toggle-checkbox>Close</label></li>
+            </ul>
+        </div>
+    </nav>
     <main class="main-center">
         <section class="ninety-percent-wrapper">
             <section class="recipe-page-hero">
@@ -48,7 +83,7 @@
                     </div>
                     <button><a href="#step-section">Jump to steps</a></button>
                 </div>
-                <div>
+                <div class="hero-img">
                     <img src="images/Recipe_General_Tsos_Chicken_with_Bok_Choy_Jasmine_Rice/0101_2PRE07_General-Tsos-Chicken_97217_WEB_SQ_hi_res.jpg" alt="">
                 </div>
             </section>
@@ -140,7 +175,7 @@
                     <h2>Trending recipes</h2>
                     <p class="subheading">See what other's have been making...</p>
                 </div>
-                <button>See all recipes</button>
+                <a href="recipes.html"><button class="top-button-section-header">All recipes</button></a>
             </div>
             <div class="div-carousel">
                 <div class="recipe-card">
@@ -212,6 +247,7 @@
                     </div>
                 </div>
             </div>
+            <a href="recipes.html"><button class="bottom-button-section-header">All recipes</button></a>
         </section>
     </main>
 

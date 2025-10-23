@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plated</title>
     <link rel="stylesheet" href="styles/styles.css">
+    <script src="script/script.js"></script>
 </head>
 <body>
-    <nav>
+    <nav class="horizontal-nav-menu">
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="recipes.html">Recipes</a></li>
@@ -17,9 +18,43 @@
                 </object>
             </a>
         <ul>
-            <li><a href="search.html">Search</a></li>
+            <li><a href="recipes.html">Search</a></li>
             <li><a href="help.html">Help</a></li>
         </ul>
+    </nav>
+    <nav class="mobile-menu">
+        <div class="div-row">
+            <div>
+                <ul class="logo">
+                    <li>
+                        <a href="index.html">
+                            <object data="images/logos/full_logo.svg" type="image/svg+xml" width="109" height="39">
+                            </object>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="hamburger">
+                <div class="row">
+                    <label for="toggle-checkbox" class="menu-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"><path fill="#000" d="M4 18q-.425 0-.712-.288T3 17t.288-.712T4 16h16q.425 0 .713.288T21 17t-.288.713T20 18zm0-5q-.425 0-.712-.288T3 12t.288-.712T4 11h16q.425 0 .713.288T21 12t-.288.713T20 13zm0-5q-.425 0-.712-.288T3 7t.288-.712T4 6h16q.425 0 .713.288T21 7t-.288.713T20 8z" stroke-width="0.5" stroke="#000"/></svg>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="overlay-nav-menu">
+            <ul class="overlay-nav-ul">
+                <li><a href="index.html">
+                    <object data="images/logos/full_logo.svg" type="image/svg+xml" width="109" height="39">
+                    </object>
+                </a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="recipes.html">Recipes</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="help.html">Help</a></li>
+                <li class="return"><label for=toggle-checkbox>Close</label></li>
+            </ul>
+        </div>
     </nav>
     <main>
         <section class="hero-section">
@@ -33,7 +68,7 @@
                     <h1 class="hero-text">Welcome to Plated</h1>
                     <p class="subheading">Helping new chefs, one plate at a time.</p>
                 </div>
-                <button>Get plating</button>
+                <a href="recipes.html"><button>Get plating</button></a>
             </div>
         </section>
         <section class="section-carousel">
@@ -42,7 +77,7 @@
                     <h2>Trending recipes</h2>
                     <p class="subheading">See what other's have been making...</p>
                 </div>
-                <button>See all recipes</button>
+                <a href="recipes.html"><button class="top-button-section-header">All recipes</button></a>
             </div>
             <div class="div-carousel">
                 <div class="recipe-card">
@@ -114,15 +149,16 @@
                     </div>
                 </div>
             </div>
+            <a href="recipes.html"><button class="bottom-button-section-header">All recipes</button></a>
         </section>
         <section class="second-hero-section">
             <img src="images/Recipe_Tuscan_Chicken_Green_Lentil_Stew_with_Goat_Cheese/0101_2PP_Chicken-Lentil-Stew_100567_SQ_hi_res.jpg" alt="" height="479" width="479">
-            <div>
+            <div class="second-hero-section-div">
                 <div>
                     <h2 class="display-h2">Cooking has never been easier!</h2>
                     <p class="subheading">Use our recipes to start plating today!</p>
                 </div>
-                <button>Search for a recipe</button>
+                <a href="recipes.html"><button>Search for a recipe</button></a>
             </div>
         </section>
     </main>

@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About and Help</title>
     <link rel="stylesheet" href="styles/styles.css">
+    <script src="script/script.js"></script>
+
 </head>
 <body>
-    <nav>
+    <nav class="horizontal-nav-menu">
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="recipes.html">Recipes</a></li>
@@ -17,17 +19,53 @@
                 </object>
             </a>
         <ul>
-            <li><a href="search.html">Search</a></li>
+            <li><a href="recipes.html">Search</a></li>
             <li><a href="help.html">Help</a></li>
         </ul>
     </nav>
+    <nav class="mobile-menu">
+        <div class="div-row">
+            <div>
+                <ul class="logo">
+                    <li>
+                        <a href="index.html">
+                            <object data="images/logos/full_logo.svg" type="image/svg+xml" width="109" height="39">
+                            </object>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="hamburger">
+                <div class="row">
+                    <label for="toggle-checkbox" class="menu-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"><path fill="#000" d="M4 18q-.425 0-.712-.288T3 17t.288-.712T4 16h16q.425 0 .713.288T21 17t-.288.713T20 18zm0-5q-.425 0-.712-.288T3 12t.288-.712T4 11h16q.425 0 .713.288T21 12t-.288.713T20 13zm0-5q-.425 0-.712-.288T3 7t.288-.712T4 6h16q.425 0 .713.288T21 7t-.288.713T20 8z" stroke-width="0.5" stroke="#000"/></svg>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="overlay-nav-menu">
+            <ul class="overlay-nav-ul">
+                <li><a href="index.html">
+                    <object data="images/logos/full_logo.svg" type="image/svg+xml" width="109" height="39">
+                    </object>
+                </a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="recipes.html">Recipes</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="help.html">Help</a></li>
+                <li class="return"><label for=toggle-checkbox>Close</label></li>
+            </ul>
+        </div>
+    </nav>
     <main class="center-content">
-        <section class="header">
-            <h1>All Recipes</h1>
-            <p>Browse all of our available recipes.</p>
-        </section>
-        <section>
-            <p>this is plated! i made this for my IDM 232 class focused on learning php and mysql. to explore the page, use the top navigation bar to look through all the recipes!</p>
+        <section class="fill">
+            <div class="header">
+                <h1>Help</h1>
+                <p>Don't know what to do? We got you!</p>
+            </div>
+            <div>
+                <p>this is plated! i made this for my IDM 232 class focused on learning php and mysql. to explore the page, use the top navigation bar to look through all the recipes!</p>
+            </section>
         </section>
     </main>
     <footer>
