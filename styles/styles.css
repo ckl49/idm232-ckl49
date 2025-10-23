@@ -87,7 +87,6 @@ button {
     font-weight: 400;
     width: fit-content;
     box-sizing: border-box;
-    height: fixed;
 }
 
 button:hover {
@@ -130,6 +129,21 @@ footer > nav {
 
 a {
     font-family: var(--body-font);
+    color: var(--dark-green);
+}
+
+a:hover {
+    color: var(--mustard);
+    text-decoration: underline;
+}
+
+a:focus {
+    color: var(--dark-gray);
+}
+
+a:active {
+    color: var(--lighter-gray);
+    text-decoration: underline;
 }
 
 nav > ul {
@@ -191,12 +205,42 @@ a:hover {
     cursor: pointer;
 }
 
+.anchor-button {
+    font-size: 18px;
+    font-family: var(--body-font);
+    background-color: var(--mustard);
+    padding: var(--padding-small) var(--padding-med);
+    border-radius: var(--button-radius);
+    border: none;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.25);
+    font-weight: 400;
+    width: fit-content;
+    box-sizing: border-box;
+}
+
+.anchor-button:hover {
+    background-color: var(--dark-green);
+    color: var(--mustard);
+    border: 1px solid var(--mustard);
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.anchor-button:active {
+    background-color: var(--dark-gray);
+    color: var(--off-white);
+    border: 1px solid var(--off-white);
+    box-sizing: border-box;
+}
+
 .subheading {
     font-size: 24px;
     line-height: 1.5rem;
     font-family: var(--body-font);
-    font-weight: 200;
-    letter-spacing: -0.5px;
+    font-weight: 300;
+    /* letter-spacing: -0.5px; */
+    color: var(--dark-green);
 }
 
 .hero-text {
@@ -240,6 +284,10 @@ a:hover {
 .hero-section > div > img {
     width: 100%;
     height: auto;
+}
+
+.hero-section > div > div > .subheading {
+    color: var(--off-white);
 }
 
 .section-carousel {
@@ -443,6 +491,10 @@ a:hover {
     padding: 2px 0;
 }
 
+.ingredients-list {
+    gap: var(--gap-small);
+}
+
 .ninety-percent-wrapper {
     width: 65%;
     display: flex;
@@ -469,16 +521,16 @@ a:hover {
     background-color: var(--dark-green);
     border-radius: var(--border-radius);
     color: var(--off-white);
+}
 
-    p {
-        color: var(--lighter-gray);
-    }
+.video-tip-div > p {
+    color: var(--lighter-gray);
 }
 
 .step-title {
     font-family: var(--body-font);
     font-size: 32px;
-    font-weight: 600;
+    font-weight: 400;
 }
 
 .step-details{
@@ -508,7 +560,7 @@ a:hover {
     flex-direction: row;
     flex-wrap: wrap;
     gap: var(--gap-med);
-    align-items: center;    /* justify-content: space-between; */
+    align-items: center;
 }
 
 .all-recipes-section > .recipe-card {
@@ -546,6 +598,18 @@ a:hover {
     text-align: center;
 }
 
+.no-results-div{
+    height: 80vh;
+    padding: var(--padding-xl);
+    padding-top: var(--padding-med);
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-med);
+    align-items: start;
+    text-align: start;
+}
+
 .div-row {
     display: flex;
     flex-direction: row;
@@ -561,10 +625,23 @@ a:hover {
     align-items: center;
     gap: 10px;
     border-radius: var(--border-radius);
+    background-color: var(--mustard);
 }
 
 .icon-btn:hover > svg path {
     stroke: var(--mustard);
+}
+
+.icon-btn:hover {
+    background-color: var(--dark-green);
+}
+
+.icon-btn:active > svg path {
+    stroke: var(--off-white);
+}
+
+.icon-btn:active {
+    background-color: var(--dark-gray);
 }
 
 .filter {
@@ -608,27 +685,7 @@ a:hover {
     width: min-content;
 }
 
-#search {
-    padding: var(--padding-small);
-    font-size: 18px;
-    font-family: var(--body-font);
-    border-radius: 8px;
-    flex-grow: 1;
-    height: fill;
-    border: 0;
-    display: flex;
-    width: 100%;
-    height: 48px;
-    padding: 12px 16px;
-    justify-content: space-between;
-    align-items: center;
-    border: 1px solid var(--light-gray);
-    border-right: 0;
-    background-color: #fff;
-    border-radius: var(--border-radius) 0 0 var(--border-radius);
-}
-
-.bottom-button-section-header {
+#bottom-button-section-header {
     display: none;
 }
 
@@ -649,6 +706,36 @@ a:hover {
     row-gap: 8px;
 }
 
+.filters-modal {
+    display: none;
+    position: fixed;
+    background: var(--off-white);
+    width: 600px;
+    height: fit-content;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: var(--padding-large) var(--padding-xl);
+    gap: var(--gap-med);
+    border-radius: var(--border-radius);
+    align-items: center;
+    flex: 0 0 auto;
+}
+
+.list-of-filters {
+    display: flex;
+    list-style: none;
+    flex-direction: row;
+    gap: var(--gap-small);
+}
+
+.list-of-filters > li,label {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 4px;
+}
+
 #search:focus {
     border: 1px solid var(--mustard);
     border-radius: var(--border-radius) 0 0 var(--border-radius);
@@ -666,6 +753,25 @@ a:hover {
 
 #logo-white {
     fill: var(--off-white);
+}
+
+#search {
+    padding: var(--padding-small);
+    font-size: 18px;
+    font-family: var(--body-font);
+    border-radius: 8px;
+    flex-grow: 1;
+    border: 0;
+    display: flex;
+    width: 100%;
+    height: 48px;
+    padding: 12px 16px;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid var(--light-gray);
+    border-right: 0;
+    background-color: #fff;
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
 }
 
 
@@ -720,6 +826,7 @@ form > button {
 .subheading {
     font-size: 24px;
     line-height: 1.5rem;
+    font-weight: 300;
 }
 
 .hero-text {
@@ -748,10 +855,10 @@ form > button {
 .second-hero-section {
     flex-direction: column;
     gap: var(--gap-med);
+}
 
-    div {
-        width: 100%;
-    }
+.second-hero-section > div {
+    width: 100%;
 }
 
 .second-hero-section > img {
@@ -762,17 +869,6 @@ form > button {
 .section-header {
     flex-direction: column;
     align-items: start;
-}
-
-.top-button-section-header {
-    display: none;
-}
-
-.bottom-button-section-header {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
 }
 
 .second-hero-section-div > a,button {
@@ -874,6 +970,35 @@ form > button {
 
 }
 
+footer {
+    flex-direction: column;
+    align-items: start;
+}
+
+footer > svg {
+    order: 3;
+    width: 90%;
+}
+
+footer > nav > ul {
+    padding: 0;
+}
+
+footer > p {
+    order: 2;
+}
+
+#top-button-section-header {
+    display: none;
+}
+
+#bottom-button-section-header {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
 
 
 }
@@ -925,16 +1050,13 @@ form > button {
     }
 
     footer > svg {
-        order: 3;
+        order: 2;
         width: 90%;
     }
     
     footer > nav > ul {
-        padding: 0;
-    }
+        flex-direction: column;
 
-    footer > p {
-        order: 2;
     }
 
     .section-carousel {
@@ -968,11 +1090,17 @@ form > button {
     }
 
     .step-title {
-        line-height: 2.5rem;
+        line-height: 2rem;
+        font-size: 24px;
+        font-weight: 400;
     }
 
-    .steps, .step-details {
+    .steps {
         gap: var(--gap-small);
+    }
+
+    .step-details {
+        gap: 4px;
     }
 
     .step-section {
@@ -991,7 +1119,7 @@ form > button {
         width: 100%;
     }
 
-    .search-button {
+    .search-bar > button {
         display: none;
     }
 

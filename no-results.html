@@ -51,7 +51,7 @@
                 </a></li>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="recipes.html">Recipes</a></li>
-                <li><a href="search.html">Search</a></li>
+                <li><a href="recipes.html">Search</a></li>
                 <li><a href="help.html">Help</a></li>
                 <li class="return"><label for=toggle-checkbox>Close</label></li>
             </ul>
@@ -59,7 +59,7 @@
     </nav>
     <main class="center-content"> 
         <div class="all-recipes-wrapper">
-            <section class="header" method="get">
+            <section class="header">
                 <h1>All Recipes</h1>
                 <p>Browse all of our available recipes.</p>
                 <!-- <form action="search" class="search-bar">
@@ -67,12 +67,61 @@
                     <button type="submit">Search</button>
                 </form> -->
 
-                <form action="no-results.html" class="search-bar">
-                    <input type="search" id="search" placeholder="Search..." />
-                    <button id="search-button">Search</button>
-                </form>
+                <div class="div-row">
+                    <form action="no-results.html" class="search-bar">
+                        <input type="search" id="search" placeholder="Search..." />
+                        <button class="icon-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="#111820" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 12h14m-7-7l7 7l-7 7"/></svg></button>
+                    </form>
+                    <a href="filters.html" class="icon-btn" id="filter-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M18.3332 2.5H1.6665L8.33317 10.3833V15.8333L11.6665 17.5V10.3833L18.3332 2.5Z" stroke="#000" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="filters-modal">
+                    <div>
+                        <h2>Select filters</h2>
+                        <p>Check the filters you want to search for:</p>
+                    </div>
+                    <ul class="list-of-filters">
+                        <li>
+                            <label class="filter-choice">
+                                <input type="checkbox" id="filter-meat" name="filter" value="meat">
+                                Meat
+                              </label>
+                        </li>
+                        <li>
+                            <label class="filter-choice">
+                                <input type="checkbox" id="filter-vegetables" name="filter" value="vegetables">
+                                Vegetables
+                              </label>
+                        </li>
+                        <li>
+                            <label class="filter-choice">
+                                <input type="checkbox" id="filter-asian" name="filter" value="asian">
+                                Asian
+                              </label>
+                        </li>
+                        <li>
+                            <label class="filter-choice">
+                                <input type="checkbox" id="filter-american" name="filter" value="american">
+                                American
+                              </label>
+                        </li>
+                        <li>
+                            <label class="filter-choice">
+                                <input type="checkbox" id="filter-mexican" name="filter" value="mexican">
+                                Mexican
+                              </label>
+                        </li>
+                    </ul>
+                    <button id="search-filters-btn">Search filters</button>
+                </div>
             </section>
-            <p class="fill">No results found</p>
+            <div class="no-results-div">
+                <p class="subheading">No results found</p>
+                <p>Try again by searching something else!</p>
+            </div>
         </div>
     </main>
     <footer>
@@ -93,8 +142,10 @@
         <p>Copyright Plated 2025</p>
         <nav>
             <ul>
+                <li><a href="index.html">Home</a></li>
                 <li><a href="recipes.html">Recipes</a></li>
                 <li><a href="help.html">Help</a></li>
+                <li><a href="recipes.html">Search</a></li>
             </ul>
         </nav>
     </footer>

@@ -13,3 +13,19 @@ document.addEventListener("DOMContentLoaded", () => {
     overlayMenu.style.top = "-100%";
   });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const filter_btn = document.querySelector("#filter-btn");
+  const overlayFilters = document.querySelector(".filters-modal");
+  const closeButton = document.querySelector("#search-filters-btn");
+
+  // Show overlay
+  hamburger.addEventListener("click", () => {
+    overlayFilters.style.display = "flex";
+  });
+
+  // Hide overlay
+  closeButton.addEventListener("click", () => {
+    overlayFilters.style.display = "none";
+  });
+});
