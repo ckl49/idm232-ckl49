@@ -36,7 +36,7 @@
     --rhythm: 60px;
 
     --heading-font: 'Firula', 'Times New Roman', 'Serif';
-    --body-font: 'SF Pro', 'Inter', 'Sans-serif';
+    --body-font: 'SF Pro', 'Inter', 'sans-serif';
 }
 
 * {
@@ -695,8 +695,18 @@ a:hover {
 
 @media (max-width: 769px) {
     
+
+h1, h2, h3, h4 {
+    font-family: var(--heading-font);
+}
+
+p {
+    font-family: var(--body-font);
+}
+
 h1 {
     font-size: 72px;
+    font-family: var(--heading-font);
 }
 
 h2 {
@@ -877,6 +887,15 @@ form > button {
 /* PHONE */
 
 @media (max-width: 532px) {
+
+    h1, h2, h3, h4 {
+        font-family: var(--heading-font);
+    }
+    
+    p {
+        font-family: var(--body-font);
+    }
+    
     
     h1 {
         font-size: 60px;
