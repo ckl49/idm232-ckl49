@@ -15,17 +15,36 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const filter_btn = document.querySelector("#filter-btn");
-  const overlayFilters = document.querySelector(".filters-modal");
-  const closeButton = document.querySelector("#search-filters-btn");
+  const filterBtn = document.getElementById("filter-btn");
+  const modal = document.getElementById("filters-modal");
+  const searchBtn = document.getElementById("search-filters-btn");
+  const closeBtn = document.getElementById("close-btn");
+  const overlay = document.getElementById("overlay");
+  const form = document.getElementById("filters-form");
 
-  // Show overlay
-  hamburger.addEventListener("click", () => {
-    overlayFilters.style.display = "flex";
+  // open modal
+  filterBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    modal.style.display = "flex";
+    overlay.classList.add("active");
   });
 
-  // Hide overlay
-  closeButton.addEventListener("click", () => {
-    overlayFilters.style.display = "none";
+  // close modal
+  closeBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+    overlay.classList.remove("active");
+  });
+
+  // validate filters before submitting
+  searchBtn.addEventListener("click", (e) => {
+    const checked = form.querySelectorAll("input[name='filter[]']:checked");
+
+    if (checked.length === 0) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const errorBox = document.querySelector(".filter-error");
+      if (errorBox) errorBox.style.display = "block";
+    }
   });
 });
