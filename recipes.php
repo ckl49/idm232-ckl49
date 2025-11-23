@@ -1,49 +1,84 @@
 <?php
-    include ("htdoc.php");
+    require "db.php"; 
 
-    $filters = isset($_GET['filter']) ? $_GET['filter'] : [];
+    // Post filters, and assign the filters that were selected into an array to be queried
+    $filters = isset($_POST['filter']) ? $_POST['filter'] : [];
     if (!is_array($filters)) {
         $filters = [$filters];
     }
 
-    $search = isset($_GET['q']) ? trim($_GET['q']) : "";
+    // Post search
+    $search = isset($_POST['q']) ? trim($_POST['q']) : "";
 
-    $sql = "SELECT * FROM recipe_db WHERE 1=1";
-    $params = [];
-    $types = "";
+    // to control the search query
+    $searchError = "";
 
-    // If user typed in the search bar:
-    if ($search !== "") {
-        $sql .= " AND (name LIKE ? 
-            OR subheading LIKE ?
-            OR cuisine LIKE ?
-            OR food LIKE ?
-            OR ingredients LIKE ?
-            OR steps LIKE ?)";
-
-        $like = "%" . $search . "%";
-        $params = array_merge($params, array_fill( 0, 6, $like));
-        $types .= str_repeat("s", 6);
+    //error control if the search query length is less than 3, than throw an error and make them retry
+    if ($search !== "" && strlen($search) < 3) {
+        $searchError = "Please enter at least 3 characters.";
     }
 
-    // If filters are selected:
+    // setting variables
+    // where is concatenating an array/multiple things into one statement to be used in a SQL statment
+    // types is the type of value, integer, string, etc.
+    // params is what is going to be searched/checked 
+
+    $where = [];
+    $types = "";
+    $params = [];
+
+    // If searching
+    if ($search !== "") {
+
+        $where[] = "(name LIKE ? OR subheading LIKE ? OR cuisine LIKE ? OR food LIKE ? OR ingredients LIKE ? OR steps LIKE ?)";
+
+        $searchValue = "%" . $search . "%";
+
+        // for the 6 different parameters that im checking above
+        $params[] = $searchValue;
+        $params[] = $searchValue;
+        $params[] = $searchValue;
+        $params[] = $searchValue;
+        $params[] = $searchValue;
+        $params[] = $searchValue;
+
+        // 6 strings to be bound in the statement
+        $types .= "ssssss";
+    }
+
+    // If filters exist
     if (!empty($filters)) {
 
-        $filtersArray = [];
+        $filterParts = [];
+
         foreach ($filters as $filter) {
-            $filtersArray[] = "(food = ? OR cuisine = ?)";
+
+            // Add the filter condition
+            $filterParts[] = "(food = ? OR cuisine = ?)";
+
+            // Add matching values
             $params[] = $filter;
             $params[] = $filter;
+
+            // 2 more string types
             $types .= "ss";
         }
 
-        $sql .= " AND (" . implode(" OR ", $filtersArray) . ")";
+        // Join all filter groups
+        $where[] = "(" . implode(" OR ", $filterParts) . ")";
+    }
+
+    // Build SQL 
+    $sql = "SELECT * FROM recipe_db";
+
+    if (!empty($where)) {
+        $sql .= " WHERE " . implode(" AND ", $where);
     }
 
     $sql .= " ORDER BY name ASC";
 
     $stmt = $conn->prepare($sql);
-
+    
     if (!empty($params)) {
         $stmt->bind_param($types, ...$params);
     }
@@ -53,7 +88,6 @@
 
     $conn->close();
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -117,11 +151,15 @@
             <section class="header">
                 <h1>All Recipes</h1>
                 <p>Browse all of our available recipes.
+
+                <!-- if the search query is has no error, and search is not empty, then print the search key inline. if not, then throw an error -->
                     <?php 
-                        if ($search !== "") {
+                        if ($searchError === "" && $search !== "") {
                             echo 'Showing all results for "' . htmlspecialchars($search) . '"';
-                        }                    
-                    ?>
+                        } else {
+                            echo $searchError;
+                        }
+                        ?>
 
                 </p>
            
@@ -129,10 +167,10 @@
                 <div class="tag-and-search-bar">
                     <div class="div-row">
                     
-                        <form action="recipes.php" method="GET" class="search-bar">
+                        <form action="recipes.php" method="POST" class="search-bar">
                             <input type="text" id="search" name="q" value="<?php echo htmlspecialchars($search); ?>" placeholder="Search recipes..." />
-                            <?php foreach ($filters as $f): ?>
-                                <input type="hidden" name="filter[]" value="<?php echo htmlspecialchars($f); ?>">
+                            <?php foreach ($filters as $filter): ?>
+                                <input type="hidden" name="filter[]" value="<?php echo htmlspecialchars($filter); ?>">
                             <?php endforeach; ?>
                             <button type="sumbit" class="icon-btn">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="#111820" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 12h14m-7-7l7 7l-7 7"/></svg></svg>
@@ -152,25 +190,23 @@
                                 $remaining = array_filter($filters, function($f) use ($filter) {
                                     return $f !== $filter;
                                 });
-
-                                // Build the URL with the remaining filters
-                                $queryString = http_build_query(['filter' => $remaining]);
-                                $queryArray = ['q' => $search, 'filter' => $remaining];
-                                $queryString = http_build_query($queryArray);
-                                $removeUrl = 'recipes.php?' . $queryString;                                
+                             
                                 ?>
                                 
                                 <div class="recipe-tag">
                                     <p><?php echo htmlspecialchars($filter); ?></p>
 
-                                    <a href="<?php echo $removeUrl; ?>" class="remove-filter">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                            viewBox="0 0 24 24">
-                                            <path fill="none" stroke="#111820" stroke-linecap="round"
-                                                stroke-linejoin="round" stroke-width="1.5"
-                                                d="M18 6L6 18M6 6l12 12"/>
-                                        </svg>
-                                    </a>
+                                    <form method="POST" action="recipes.php" class="remove-filter-form">
+                                        <input type="hidden" name="q" value="<?php echo htmlspecialchars($search); ?>">
+
+                                        <?php foreach ($remaining as $r): ?>
+                                            <input type="hidden" name="filter[]" value="<?php echo htmlspecialchars($r); ?>">
+                                        <?php endforeach; ?>
+
+                                        <button type="submit" class="icon-btn close">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="#111820" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 6L6 18M6 6l12 12"/></svg>                                       
+                                         </button>
+                                    </form>
                                 </div>
                             <?php endforeach; ?>
                         </div>
@@ -184,7 +220,7 @@
                         <h2>Filter Recipes</h2>
                         <p>Check the filters you want to search for:</p>
                     </div>
-                    <form id="filters-form" method="GET" action="recipes.php" class="list-of-filters">
+                    <form id="filters-form" method="POST" action="recipes.php" class="list-of-filters">
                         <input type="hidden" name="q" value="<?php echo htmlspecialchars($search); ?>">
 
                         <div>
@@ -309,21 +345,28 @@
 
 
 
-
+            <!-- this prints out all the recipes in the current directory -->
             <section class="all-recipes-section">
                     <?php
                     if ($result -> num_rows === 0) {
-                        echo '<p>No results found for "' . htmlspecialchars($search) . '". Please try again by searching or filtering something different!</p>';
+                        echo '<div class="no-results-div">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 24 24"><g fill="none" stroke="#072f1c" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2s-4 2-4 2m1-7h.01M15 9h.01"/></g></svg>
+                            <p class="subheading">No results found for "' . htmlspecialchars($search) . '". </p>
+                            
+                            <p> Please try again by searching and filtering differently, or by clearning all filters!</p>
+                        </div>';
                     }   else    { 
-                            while ($row = $result->fetch_assoc()) {
+                        while ($row = $result->fetch_assoc()) {
+                            // blowing up the entire images string and grabbing the first image
                         $image_array = explode(separator: "*", string: $row["images"]);
                         $small_image_array = explode(separator: "*", string: $row["mobile_images"]);
 
                         $first_image = $image_array[0];
                         $small_first_image = $small_image_array[0];
 
+                        // recipe card creation for every row
                         echo '
-                        <a href="recipe.php?name=' . urlencode($row["name"]) . '" class="recipe-card-link" >
+                        <a href="recipe.php?name=' . urlencode($row["name"]) . '" class="recipe-card-link fade-up" >
                             <div class="recipe-card">
                                 <div class="image-and-recipe-title">
                                     <picture>
@@ -353,7 +396,7 @@
         </div>
     </main>
     <footer>
-        <svg id="logo-white" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 421.3 156.19" width="350" height="auto">
+        <svg id="logo-white" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 421.3 156.19" width="350" height="132">
             <g id="Layer_1-2" data-name="Layer 1">
               <g>
                 <path d="M47.35,57.19c.04-1.44.2-3.48.72-5.86.88-4.06,2.34-6.93,3.63-9.41,1.17-2.25,2.91-5.2,5.47-8.39,1.19-1.42,2.73-3.1,3.18-2.83.46.28-.53,2.42-1.42,5.29-1.14,3.67-2.66,10.25-1.46,10.81,1.17.54,4.95-4.7,8.13-9.1,2.38-3.29,3.69-5.5,4.19-5.28.48.22-.26,2.45-1.03,6.15-.56,2.7-2.24,10.78-1.01,11.24,1.27.48,5.98-7,7.55-9.69.61-1.04,2.4-4.18,3.14-3.91.11.04.5.25.21,3.42-.24,2.63-.72,4.87-1.21,6.64-.69,2.24-1.91,5.3-3.94,8.66-.83,1.37-1.84,2.8-3.14,4.33-2.12,2.49-5.75,5.55-7.73,7.21-.95,1.03-6.09,6.77-5.2,14.61.62,5.48,4.06,11,8.54,12.99,12.65,5.6,41.71-13.43,43.43-37.44,1.08-15-8.96-25.71-9.43-26.2-5.75-5.88-14.4-10-26.64-10.46-32.71-1.24-51.41,24.11-52.11,42.36-.15,3.98.54,7.81,1.36,10.82,1.04,3.84-.42,7.92-3.7,10.17l-2.24,1.54c-5.17,3.56-12.36,1.1-14.17-4.91C.97,75.03-.22,68.85.04,62.05,1.1,34.04,25.27-1.79,74.06.07c41.21,1.57,60.43,29.08,59.37,57.1-1.34,35.26-33.91,67.56-77.09,52.24-4.62-1.64-11.98.38-13.97,4.86,0,0-15.52,34.89-15.52,34.89-1.6,3.61-5.06,5.42-8.9,5.58-8.54.35-12.7-12.66-11.12-19.43,1.82-7.81,7.19-15.08,11.49-21.66,1.69-2.58,3.49-5.1,5.15-7.71,10.45-16.36,11.99-18.85,15.84-27.8,3.6-8.37,7.2-16.03,8.03-20.95Z"/>

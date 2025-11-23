@@ -275,10 +275,17 @@ a:hover {
     align-content: center;
     text-align: center;
     padding: var(--padding-xl);
-    background-image: url(/images/cooking-hero.webp);
+    background-image: url(../images/cooking-hero.webp);
     background-size: cover; /* or contain, or auto */
 
 }
+
+main.overlay-active {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+
 
 .hero-section > div > div {
     gap: var(--gap-med);
@@ -315,6 +322,17 @@ a:hover {
 
 .section-header > div {
     gap: 12px;
+}
+
+.fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-up.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .div-carousel {
@@ -408,6 +426,10 @@ a:hover {
 
 }
 
+main.overlay-active .fade-up {
+    transition: none !important;
+}
+
 
 .recipe-second-line {
     background-color: transparent;
@@ -491,7 +513,7 @@ a:hover {
     flex-direction: column;
     align-items: center;
     gap: var(--gap-med);
-    width: 50vw;
+    /* width: 50vw; */
     height: auto;
 }
 
@@ -708,6 +730,21 @@ a:hover {
     background-color: var(--mustard);
 }
 
+.close {
+    background: none;
+    box-shadow: none;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+}
+
+.no-results-div {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+
 .icon-btn:hover > svg path {
     stroke: var(--mustard);
 }
@@ -857,6 +894,7 @@ a:hover {
     height: 100%;
     background: rgba(0, 0, 0, 0.5); /* controls darkness */
     display: none;
+    z-index: 100;
   }
 
 #search:focus {
@@ -897,16 +935,7 @@ a:hover {
     border-radius: var(--border-radius) 0 0 var(--border-radius);
 }
 
-.fade-up {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-}
 
-.fade-up.active {
-    opacity: 1;
-    transform: translateY(0);
-}
 
 
 
@@ -943,7 +972,7 @@ h1, h2, h3, h4 {
 }
 
 .hero-section > div {
-    background-image: url(/images/cooking-hero-small.webp);    
+    background-image: url(../images/cooking-hero-small.webp);    
 }
 
 p {
@@ -1026,6 +1055,7 @@ form > button {
     flex-direction: column;
     gap: var(--gap-med);
     align-items: start;
+    z-index: 100;
 }
 
 .mobile-menu > div.div-row {
@@ -1050,10 +1080,11 @@ form > button {
     top: -100%; /* Start hidden above the viewport */
     left: 0;
     transition: top 0.4s ease-in-out; /* Smooth slide-down transition */
-    z-index: 1000; /* Ensure it’s on top of other content */
+    z-index: 9999999; /* Ensure it’s on top of other content */
     justify-content: center;
     align-items: center;
     justify-items: center;
+    isolation: isolate;
 }
 
 /* List styles */
@@ -1067,6 +1098,8 @@ form > button {
     flex-direction: column;
     gap: var(--rhythm);
     height: 100%; /* Ensure the list takes full height */
+    z-index: 1000000;
+    isolation: isolate;
 }
 
 .return {
@@ -1082,12 +1115,14 @@ form > button {
     font-size: 2rem;
     text-align: center;
     font-style: var(--body-font);
+    z-index: 100000;
+    isolation: isolate;
 }
 
 /* Show the overlay when the checkbox is checked */
-#toggle-checkbox:checked + .overlay-nav-menu {
+/* #toggle-checkbox:checked + .overlay-nav-menu {
     top: 0; /* Slide into view */
-}
+
 
 .logo > li {
     list-style: none;

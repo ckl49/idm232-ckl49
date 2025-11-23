@@ -1,11 +1,10 @@
 <?php
-    include ("htdoc.php");
+    require "db.php"; 
 
     $result = $conn->query(query: "SELECT * FROM recipe_db");
 
     $conn->close();
 ?>
-
 
 
 <!DOCTYPE html>
@@ -18,6 +17,8 @@
     <script src="script/script.js"></script>
 </head>
 <body>
+
+<!-- nav for normal desktop -->
 <nav class="horizontal-nav-menu">
         <ul>
             <li><a href="index.php">Home</a></li>
@@ -32,6 +33,8 @@
             <li><a href="help.php">Help</a></li>
         </ul>
     </nav>
+
+    <!-- nav for mobile, works like an overlay when clicking on the hamburger -->
     <nav class="mobile-menu">
         <div class="div-row">
             <div>
@@ -46,12 +49,14 @@
             </div>
             <div class="hamburger">
                 <div class="row">
+                    <input type="checkbox" id="toggle-checkbox" hidden>
                     <label for="toggle-checkbox" class="menu-btn">
                         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"><path fill="#000" d="M4 18q-.425 0-.712-.288T3 17t.288-.712T4 16h16q.425 0 .713.288T21 17t-.288.713T20 18zm0-5q-.425 0-.712-.288T3 12t.288-.712T4 11h16q.425 0 .713.288T21 12t-.288.713T20 13zm0-5q-.425 0-.712-.288T3 7t.288-.712T4 6h16q.425 0 .713.288T21 7t-.288.713T20 8z" stroke-width="0.5" stroke="#000"/></svg>
                     </label>
                 </div>
             </div>
         </div>
+
         <div class="overlay-nav-menu">
             <ul class="overlay-nav-ul">
                 <li><a href="index.php">
@@ -62,14 +67,18 @@
                 <li><a href="recipes.php">Recipes</a></li>
                 <li><a href="recipes.php">Search</a></li>
                 <li><a href="help.php">Help</a></li>
-                <li class="return"><label for=toggle-checkbox>Close</label></li>
+                <li class="return"><label for="toggle-checkbox">Close</label></li>
             </ul>
         </div>
     </nav>
     <main>
+
+        <!-- hero section with image in the background -->
         <section class="hero-section">
             <div>
-                <div>
+
+            <!-- fade up class is an animation put onto all the sections -->
+                <div class="fade-up">
                     <svg id="logomark-yellow" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 133.47 154.74" width="80" height="80">
                         <g id="Layer_1-2" data-name="Layer 1">
                           <path d="M47.35,57.19c.04-1.44.2-3.48.72-5.86.88-4.06,2.34-6.93,3.63-9.41,1.17-2.25,2.91-5.2,5.47-8.39,1.19-1.42,2.73-3.1,3.18-2.83.46.28-.53,2.42-1.42,5.29-1.14,3.67-2.66,10.25-1.46,10.81,1.17.54,4.95-4.7,8.13-9.1,2.38-3.29,3.69-5.5,4.19-5.28.48.22-.26,2.45-1.03,6.15-.56,2.7-2.24,10.78-1.01,11.24,1.27.48,5.98-7,7.55-9.69.61-1.04,2.4-4.18,3.14-3.91.11.04.5.25.21,3.42-.24,2.63-.72,4.87-1.21,6.64-.69,2.24-1.91,5.3-3.94,8.66-.83,1.37-1.84,2.8-3.14,4.33-2.12,2.49-5.75,5.55-7.73,7.21-.95,1.03-6.09,6.77-5.2,14.61.62,5.48,4.06,11,8.54,12.99,12.65,5.6,41.71-13.43,43.43-37.44,1.08-15-8.96-25.71-9.43-26.2-5.75-5.88-14.4-10-26.64-10.46-32.71-1.24-51.41,24.11-52.11,42.36-.15,3.98.54,7.81,1.36,10.82,1.04,3.84-.42,7.92-3.7,10.17l-2.24,1.54c-5.17,3.56-12.36,1.1-14.17-4.91C.97,75.03-.22,68.85.04,62.05,1.1,34.04,25.27-1.79,74.06.07c41.21,1.57,60.43,29.08,59.37,57.1-1.34,35.26-33.91,67.56-77.09,52.24-4.62-1.64-11.98.38-13.97,4.86,0,0-15.52,34.89-15.52,34.89-1.6,3.61-5.06,5.42-8.9,5.58-8.54.35-12.7-12.66-11.12-19.43,1.82-7.81,7.19-15.08,11.49-21.66,1.69-2.58,3.49-5.1,5.15-7.71,10.45-16.36,11.99-18.85,15.84-27.8,3.6-8.37,7.2-16.03,8.03-20.95Z"/>
@@ -78,10 +87,10 @@
                     <h1 class="hero-text">Welcome to Plated</h1>
                     <p class="subheading">Helping new chefs, one plate at a time.</p>
                 </div>
-                <a href="recipes.php" class="anchor-button">Get plating</a>
+                <a href="recipes.php" class="anchor-button fade-up">Get plating</a>
             </div>
         </section>
-        <section class="section-carousel">
+        <section class="section-carousel fade-up">
             <div class="section-header">
                 <div>
                     <h2>Trending recipes</h2>
@@ -91,9 +100,14 @@
             </div>
             <div class="div-carousel">
                 <?php
+
+                // count is the number of cards that will be shown
+                
                     $count = 0;
                     
                     while ($row = $result->fetch_assoc()) {
+
+                        // seperating the urls for each image and grabbing the first one to display the recipe's image on the card
                         $image_array = explode(separator: "*", string: $row["images"]);
                         $small_image_array = explode(separator: "*", string: $row["mobile_images"]);
 
@@ -101,6 +115,7 @@
                         $first_image = $image_array[0];
                         $count++;
 
+                        //show the first seven in the sequence of recipes, stop when count is greater than 8
                         if ($count <= 7) {
                             echo '
                             <a href="recipe.php?name=' . urlencode($row["name"]) . '" class="recipe-card-link" >
@@ -136,7 +151,7 @@
             </div>
             <a href="recipes.php" class="anchor-button" id="bottom-button-section-header">All recipes</a>
         </section>
-        <section class="second-hero-section">
+        <section class="second-hero-section fade-up">
             <picture>
                 <source srcset="images/Recipe_Salmon_HoneyGlazed_Carrots_with_LemonSaffron_Yogurt_Sauce/recipe-img-small.webp" media="(max-width: 732px)">
                 <img src="images/Recipe_Salmon_HoneyGlazed_Carrots_with_LemonSaffron_Yogurt_Sauce/recipe-img.webp" alt="Honey Glazed Salmon">
@@ -152,7 +167,7 @@
         </section>
     </main>
     <footer>
-        <svg id="logo-white" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 421.3 156.19" width="350" height="auto">
+        <svg id="logo-white" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 421.3 156.19" width="350" height="132">
             <g id="Layer_1-2" data-name="Layer 1">
               <g>
                 <path d="M47.35,57.19c.04-1.44.2-3.48.72-5.86.88-4.06,2.34-6.93,3.63-9.41,1.17-2.25,2.91-5.2,5.47-8.39,1.19-1.42,2.73-3.1,3.18-2.83.46.28-.53,2.42-1.42,5.29-1.14,3.67-2.66,10.25-1.46,10.81,1.17.54,4.95-4.7,8.13-9.1,2.38-3.29,3.69-5.5,4.19-5.28.48.22-.26,2.45-1.03,6.15-.56,2.7-2.24,10.78-1.01,11.24,1.27.48,5.98-7,7.55-9.69.61-1.04,2.4-4.18,3.14-3.91.11.04.5.25.21,3.42-.24,2.63-.72,4.87-1.21,6.64-.69,2.24-1.91,5.3-3.94,8.66-.83,1.37-1.84,2.8-3.14,4.33-2.12,2.49-5.75,5.55-7.73,7.21-.95,1.03-6.09,6.77-5.2,14.61.62,5.48,4.06,11,8.54,12.99,12.65,5.6,41.71-13.43,43.43-37.44,1.08-15-8.96-25.71-9.43-26.2-5.75-5.88-14.4-10-26.64-10.46-32.71-1.24-51.41,24.11-52.11,42.36-.15,3.98.54,7.81,1.36,10.82,1.04,3.84-.42,7.92-3.7,10.17l-2.24,1.54c-5.17,3.56-12.36,1.1-14.17-4.91C.97,75.03-.22,68.85.04,62.05,1.1,34.04,25.27-1.79,74.06.07c41.21,1.57,60.43,29.08,59.37,57.1-1.34,35.26-33.91,67.56-77.09,52.24-4.62-1.64-11.98.38-13.97,4.86,0,0-15.52,34.89-15.52,34.89-1.6,3.61-5.06,5.42-8.9,5.58-8.54.35-12.7-12.66-11.12-19.43,1.82-7.81,7.19-15.08,11.49-21.66,1.69-2.58,3.49-5.1,5.15-7.71,10.45-16.36,11.99-18.85,15.84-27.8,3.6-8.37,7.2-16.03,8.03-20.95Z"/>

@@ -1,0 +1,4 @@
+SetEnv DB_SERVER localhost
+SetEnv DB_USERNAME root
+SetENV DB_PASSWORD root
+SetENV DB_NAME idm232

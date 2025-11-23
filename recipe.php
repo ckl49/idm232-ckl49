@@ -1,6 +1,7 @@
 <?php
-    include ("htdoc.php");
+    require "db.php"; 
 
+    // if name is recieved and it matches the same one as another, then grab that row
     if (isset($_GET["name"])) {
         $name = htmlspecialchars(string: $_GET["name"]);
         $name = $conn-> real_escape_string($_GET["name"]);
@@ -8,6 +9,8 @@
         $query = "SELECT * FROM recipe_db WHERE name = '$name'";
         $result = $conn->query(query: $query);
 
+        // if the result comes back with 1, select all the information from that row's columns and put them into variables to be referenced later
+        // if there is nothing in the box, then return empty/null
         if ($result->num_rows > 0) {
             $row        = $result->fetch_assoc();
             $name       = $row["name"] ?? '';
@@ -91,14 +94,15 @@
     <main class="main-center">
     <section class="ninety-percent-wrapper">
         <section class="xl-gap">
-            <section class="recipe-page-hero">
+            <section class="recipe-page-hero fade-up">
                 <div class="recipe-page-hero-div">
                     <a href="index.php"><u>Back to Home</u></a>
 
+                    <!-- call all the variables in line so each page will fill in dynamically -->
                     <div class="recipe-page-title">
                         <h1 class="recipe-page-h1"> <?php echo $name ?></h1>
                         <p class="subheading"> 
-                            <?php echo "$subheading" ?> </p>
+                            <?php echo $subheading ?> </p>
                     </div>
                     <div>
                         <p> <?php echo $blurb ?> </p>
@@ -115,12 +119,14 @@
                 </div>
                 <div class="hero-img">
                     <?php 
+                        // separating the long string of image paths into an array, and grabbing the first one to place into the first image spot
                         $image_array = explode(separator: "*", string: $row["images"]);
                         $small_image_array = explode(separator:"*", string: $row ["mobile_images"]);
 
                         $first_image = $image_array[0];
                         $small_first_image = $small_image_array[0];
 
+                        // echo a picture to make sure to optimize image
                         echo '
                             <picture>
                                 <source srcset="' . $small_first_image . '" media="(max-width: 600px)">
@@ -131,16 +137,14 @@
                     ?>
                 </div>
             </section>
-            <section class="recipe-page-ingredients-section">
+            <section class="recipe-page-ingredients-section fade-up">
                 <div class="ingredients-div">
                     <div class="ingredients-list">
                         <h2>Ingredients</h2>
-                        <!-- <ul> -->
-
-                        <!-- $ingredients = $row["ingredients"]; -->
 
 
                         <?php 
+                        // seperating each ingredient into its own list item, and pushing that out as a full unordered list
                             $ingredients_array = explode (separator:'*', string: $ingredients);
                             
                             echo "<ul>";
@@ -153,7 +157,9 @@
                         ?>
                     </div>
                     <div>
+                        
                     <?php
+                        //calling new image for the ingredients part
                         $ingredient_img = $image_array[1];
                         $small_ingredient_img = $small_image_array[1];
 
@@ -168,6 +174,7 @@
                     </div>
                 </div>
 
+                <!-- if the tip column is empty for the row, then don't show anything -->
                 <?php if (!empty($tip)): 
                     $tip_array = explode(separator: "*", string: $tip);
                     $tip_title = $tip_array[0];
@@ -178,7 +185,7 @@
                         <h3> <?php echo "$tip_title" ?> </h3>
                         <p> <?php echo "$tip_text" ?> </p>
                         <button class="anchor-button">
-                        Watch Tutorial
+                            Watch Tutorial
                         </button>
                     </div>
                     
@@ -190,28 +197,28 @@
                 <?php if (!empty($tip)): 
                         $kitchenTool_array = explode(separator: "*", string: $kitchenTool);
                         
-
+                            // if there was a no subheading
                         if (count($kitchenTool_array) === 2) {
-                            $kitchenTool_name = $kitchenTool_array[0] ?? '';
-                            $kitchenTool_text   = $kitchenTool_array[1] ?? '';
+                            $kitchenTool_name       = $kitchenTool_array[0] ?? '';
+                            $kitchenTool_text       = $kitchenTool_array[1] ?? '';
                             $kitchenTool_subheading = '';
                             
-                            // no paragraph available
+                            // if there was a subheading
                         } elseif (count($kitchenTool_array) === 3) {
-                            $kitchenTool_name = $kitchenTool_array[0] ?? '';
+                            $kitchenTool_name         = $kitchenTool_array[0] ?? '';
                             $kitchenTool_subheading   = $kitchenTool_array[1] ?? '';
-                            $kitchenTool_text  = $kitchenTool_array[2] ?? '';
+                            $kitchenTool_text         = $kitchenTool_array[2] ?? '';
                         }
-                            // $kitchenTool_name = $kitchenTool_array[0] ?? '';
-                            // $kitchenTool_subheading = $kitchenTool_array[1] ?? '';
-                            // $kitchenTool_text = $kitchenTool_array[2] ?? '';
                     ?>
             </section>
         
-            <section class="kitchen-tool-section">
+            <section class="kitchen-tool-section fade-up">
                 <h2> <?php echo "$kitchenTool_name"?> </h2>
                 <p class="subheading"> <?php echo "$kitchenTool_subheading"?> </p>
                 <p> <?php echo "$kitchenTool_text"?> </p>
+
+                <!-- have to show the image -->
+
                 <?php
                     $kitchenTool_img = $image_array[2];
                     $small_kitchenTool_img = $small_image_array[2];
@@ -242,12 +249,13 @@
 
                         // Loop through images starting from index 3
                         for ($i = 3; $i < count($image_array); $i++) {    
-                            // Calculate step index relative to image index
+
+                            // Calculate step index relative to image index since steps should start from pocket 0
                             $step_index = $i - 3;
                             $step_text = $steps_array[$step_index] ?? '';
 
                             echo '
-                                <div class="step-details">
+                                <div class="step-details fade-up">
                                     <picture>
                                         <source srcset="' . $small_image_array[$i] . '" media="(max-width: 600px)">
                                         <img src="' . $image_array[$i] . '" alt="Step ' . ($step_index + 1) . '">
@@ -266,7 +274,7 @@
         </section>
     </section>
 
-        <section class="section-carousel">
+        <section class="section-carousel fade-up">
             <div class="section-header">
                 <div>
                     <h2>See more recipes</h2>
@@ -275,6 +283,9 @@
                 <a href="recipes.php" id="top-button-section-header" class="anchor-button">All recipes</a>
             </div>
             <div class="div-carousel">
+
+            <!-- build carousel -->
+
                 <?php
                     $count = 0;
                     $carousel_query = "SELECT * FROM recipe_db";
@@ -287,6 +298,8 @@
                         $small_first_image = $small_image_array[0];
                         $first_image = $image_array[0];
                         $count++;
+
+                        // loop for 7 recipes to put that into carousel
 
                         if ($count <= 7) {
                             echo '
@@ -328,7 +341,7 @@
     </main>
 
     <footer>
-        <svg id="logo-white" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 421.3 156.19" width="350" height="auto">
+        <svg id="logo-white" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 421.3 156.19" width="350" height="132">
             <g id="Layer_1-2" data-name="Layer 1">
               <g>
                 <path d="M47.35,57.19c.04-1.44.2-3.48.72-5.86.88-4.06,2.34-6.93,3.63-9.41,1.17-2.25,2.91-5.2,5.47-8.39,1.19-1.42,2.73-3.1,3.18-2.83.46.28-.53,2.42-1.42,5.29-1.14,3.67-2.66,10.25-1.46,10.81,1.17.54,4.95-4.7,8.13-9.1,2.38-3.29,3.69-5.5,4.19-5.28.48.22-.26,2.45-1.03,6.15-.56,2.7-2.24,10.78-1.01,11.24,1.27.48,5.98-7,7.55-9.69.61-1.04,2.4-4.18,3.14-3.91.11.04.5.25.21,3.42-.24,2.63-.72,4.87-1.21,6.64-.69,2.24-1.91,5.3-3.94,8.66-.83,1.37-1.84,2.8-3.14,4.33-2.12,2.49-5.75,5.55-7.73,7.21-.95,1.03-6.09,6.77-5.2,14.61.62,5.48,4.06,11,8.54,12.99,12.65,5.6,41.71-13.43,43.43-37.44,1.08-15-8.96-25.71-9.43-26.2-5.75-5.88-14.4-10-26.64-10.46-32.71-1.24-51.41,24.11-52.11,42.36-.15,3.98.54,7.81,1.36,10.82,1.04,3.84-.42,7.92-3.7,10.17l-2.24,1.54c-5.17,3.56-12.36,1.1-14.17-4.91C.97,75.03-.22,68.85.04,62.05,1.1,34.04,25.27-1.79,74.06.07c41.21,1.57,60.43,29.08,59.37,57.1-1.34,35.26-33.91,67.56-77.09,52.24-4.62-1.64-11.98.38-13.97,4.86,0,0-15.52,34.89-15.52,34.89-1.6,3.61-5.06,5.42-8.9,5.58-8.54.35-12.7-12.66-11.12-19.43,1.82-7.81,7.19-15.08,11.49-21.66,1.69-2.58,3.49-5.1,5.15-7.71,10.45-16.36,11.99-18.85,15.84-27.8,3.6-8.37,7.2-16.03,8.03-20.95Z"/>
