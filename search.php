@@ -31,6 +31,8 @@ $result = $stmt->get_result();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Recipes</title>
+    <link rel="icon" type="image/x-icon" href="images/logos/logomark.svg">
+
     <link rel="stylesheet" href="styles/styles.css">
     <script src="script/script.js"></script>
 

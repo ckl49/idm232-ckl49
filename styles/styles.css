@@ -438,7 +438,8 @@ main.overlay-active .fade-up {
     font-weight: 300;
     font-style: normal;
     line-height: normal;
-    white-space: nowrap;
+    /* white-space: nowrap; */
+    text-wrap: wrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -728,6 +729,12 @@ main.overlay-active .fade-up {
     gap: 10px;
     border-radius: var(--border-radius);
     background-color: var(--mustard);
+}
+
+.hamburger {
+    position: relative;
+    z-index: 100000000; 
+    pointer-events: auto;
 }
 
 .close {

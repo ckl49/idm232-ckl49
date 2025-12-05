@@ -1,7 +1,11 @@
 <?php
     require "db.php"; 
 
-    $result = $conn->query(query: "SELECT * FROM recipe_db");
+    $result = $conn->query("SELECT * FROM recipe_db");
+
+    if (!$result) {
+        die("Query failed: " . $conn->error);
+    }
 
     $conn->close();
 ?>
@@ -13,64 +17,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plated</title>
+    <link rel="icon" type="image/x-icon" href="images/logos/logomark.svg">
     <link rel="stylesheet" href="styles/styles.css">
-    <script src="script/script.js"></script>
+    <!-- <script src="script/script.js"></script> -->
+
 </head>
 <body>
 
 <!-- nav for normal desktop -->
-<nav class="horizontal-nav-menu">
-        <ul>
-            <li><a href="index.php">Home</a></li>
-            <li><a href="recipes.php">Recipes</a></li>
-        </ul>
-            <a href="index.php">
-                <object data="images/logos/full_logo.svg" type="image/svg+xml" width="109" height="39">
-                </object>
-            </a>
-        <ul>
-            <li><a href="recipes.php">Search</a></li>
-            <li><a href="help.php">Help</a></li>
-        </ul>
-    </nav>
-
-    <!-- nav for mobile, works like an overlay when clicking on the hamburger -->
-    <nav class="mobile-menu">
-        <div class="div-row">
-            <div>
-                <ul class="logo">
-                    <li>
-                        <a href="index.php">
-                            <object data="images/logos/full_logo.svg" type="image/svg+xml" width="109" height="39">
-                            </object>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="hamburger">
-                <div class="row">
-                    <input type="checkbox" id="toggle-checkbox" hidden>
-                    <label for="toggle-checkbox" class="menu-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"><path fill="#000" d="M4 18q-.425 0-.712-.288T3 17t.288-.712T4 16h16q.425 0 .713.288T21 17t-.288.713T20 18zm0-5q-.425 0-.712-.288T3 12t.288-.712T4 11h16q.425 0 .713.288T21 12t-.288.713T20 13zm0-5q-.425 0-.712-.288T3 7t.288-.712T4 6h16q.425 0 .713.288T21 7t-.288.713T20 8z" stroke-width="0.5" stroke="#000"/></svg>
-                    </label>
-                </div>
-            </div>
-        </div>
-
-        <div class="overlay-nav-menu">
-            <ul class="overlay-nav-ul">
-                <li><a href="index.php">
-                    <object data="images/logos/full_logo.svg" type="image/svg+xml" width="109" height="39">
-                    </object>
-                </a></li>
-                <li><a href="index.php">Home</a></li>
-                <li><a href="recipes.php">Recipes</a></li>
-                <li><a href="recipes.php">Search</a></li>
-                <li><a href="help.php">Help</a></li>
-                <li class="return"><label for="toggle-checkbox">Close</label></li>
-            </ul>
-        </div>
-    </nav>
+    <?php include 'components/navbar.php' ?>
     <main>
 
         <!-- hero section with image in the background -->
@@ -191,5 +146,9 @@
             </ul>
         </nav>
     </footer>
+    <script>
+    console.log("Inline JS is running");
+    </script>
+    <script src="script/script.js"></script>
 </body>
 </html>

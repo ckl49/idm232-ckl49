@@ -38,59 +38,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> <?php echo $name ?> </title>
+    <link rel="icon" type="image/x-icon" href="images/logos/logomark.svg">
     <link rel="stylesheet" href="styles/styles.css">
     <script src="script/script.js"></script>
 
 </head>
 <body>
-<nav class="horizontal-nav-menu">
-        <ul>
-            <li><a href="index.php">Home</a></li>
-            <li><a href="recipes.php">Recipes</a></li>
-        </ul>
-            <a href="index.php">
-                <object data="images/logos/full_logo.svg" type="image/svg+xml" width="109" height="39">
-                </object>
-            </a>
-        <ul>
-            <li><a href="recipes.php">Search</a></li>
-            <li><a href="help.php">Help</a></li>
-        </ul>
-    </nav>
-    <nav class="mobile-menu">
-        <div class="div-row">
-            <div>
-                <ul class="logo">
-                    <li>
-                        <a href="index.php">
-                            <object data="images/logos/full_logo.svg" type="image/svg+xml" width="109" height="39">
-                            </object>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="hamburger">
-                <div class="row">
-                    <label for="toggle-checkbox" class="menu-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"><path fill="#000" d="M4 18q-.425 0-.712-.288T3 17t.288-.712T4 16h16q.425 0 .713.288T21 17t-.288.713T20 18zm0-5q-.425 0-.712-.288T3 12t.288-.712T4 11h16q.425 0 .713.288T21 12t-.288.713T20 13zm0-5q-.425 0-.712-.288T3 7t.288-.712T4 6h16q.425 0 .713.288T21 7t-.288.713T20 8z" stroke-width="0.5" stroke="#000"/></svg>
-                    </label>
-                </div>
-            </div>
-        </div>
-        <div class="overlay-nav-menu">
-            <ul class="overlay-nav-ul">
-                <li><a href="index.php">
-                    <object data="images/logos/full_logo.svg" type="image/svg+xml" width="109" height="39">
-                    </object>
-                </a></li>
-                <li><a href="index.php">Home</a></li>
-                <li><a href="recipes.php">Recipes</a></li>
-                <li><a href="recipes.php">Search</a></li>
-                <li><a href="help.php">Help</a></li>
-                <li class="return"><label for=toggle-checkbox>Close</label></li>
-            </ul>
-        </div>
-    </nav>
+    <?php 
+        include 'components/navbar.php';
+    ?>
     <main class="main-center">
     <section class="ninety-percent-wrapper">
         <section class="xl-gap">
@@ -184,9 +140,6 @@
                     <div class="video-tip-div">
                         <h3> <?php echo "$tip_title" ?> </h3>
                         <p> <?php echo "$tip_text" ?> </p>
-                        <button class="anchor-button">
-                            Watch Tutorial
-                        </button>
                     </div>
                     
 
@@ -194,7 +147,7 @@
                 
 
                 <!-- show or hide the kitchen tool section -->
-                <?php if (!empty($tip)): 
+                <?php if (!empty($kitchenTool)): 
                         $kitchenTool_array = explode(separator: "*", string: $kitchenTool);
                         
                             // if there was a no subheading
