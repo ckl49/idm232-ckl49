@@ -40,8 +40,6 @@
     <title> <?php echo $name ?> </title>
     <link rel="icon" type="image/x-icon" href="images/logos/logomark.svg">
     <link rel="stylesheet" href="styles/styles.css">
-    <script src="script/script.js"></script>
-
 </head>
 <body>
     <?php 
@@ -147,46 +145,51 @@
                 
 
                 <!-- show or hide the kitchen tool section -->
-                <?php if (!empty($kitchenTool)): 
-                        $kitchenTool_array = explode(separator: "*", string: $kitchenTool);
-                        
-                            // if there was a no subheading
-                        if (count($kitchenTool_array) === 2) {
-                            $kitchenTool_name       = $kitchenTool_array[0] ?? '';
-                            $kitchenTool_text       = $kitchenTool_array[1] ?? '';
-                            $kitchenTool_subheading = '';
-                            
-                            // if there was a subheading
-                        } elseif (count($kitchenTool_array) === 3) {
-                            $kitchenTool_name         = $kitchenTool_array[0] ?? '';
-                            $kitchenTool_subheading   = $kitchenTool_array[1] ?? '';
-                            $kitchenTool_text         = $kitchenTool_array[2] ?? '';
-                        }
-                    ?>
-            </section>
-        
-            <section class="kitchen-tool-section fade-up">
-                <h2> <?php echo "$kitchenTool_name"?> </h2>
-                <p class="subheading"> <?php echo "$kitchenTool_subheading"?> </p>
-                <p> <?php echo "$kitchenTool_text"?> </p>
-
-                <!-- have to show the image -->
-
                 <?php
-                    $kitchenTool_img = $image_array[2];
-                    $small_kitchenTool_img = $small_image_array[2];
-                    echo '
+                    // Prepare defaults so no undefined variable warnings occur
+                    $kitchenTool_name = '';
+                    $kitchenTool_subheading = '';
+                    $kitchenTool_text = '';
+
+                    // Only parse and show kitchen tool section if data exists
+                    if (!empty($kitchenTool)) {
+
+                        $kitchenTool_array = explode("*", $kitchenTool);
+
+                        if (count($kitchenTool_array) === 2) {
+                            $kitchenTool_name       = $kitchenTool_array[0];
+                            $kitchenTool_subheading = '';
+                            $kitchenTool_text       = $kitchenTool_array[1];
+                        }
+
+                        if (count($kitchenTool_array) === 3) {
+                            $kitchenTool_name       = $kitchenTool_array[0];
+                            $kitchenTool_subheading = $kitchenTool_array[1];
+                            $kitchenTool_text       = $kitchenTool_array[2];
+                        }
+
+                        // images
+                        $kitchenTool_img = $image_array[2] ?? '';
+                        $small_kitchenTool_img = $small_image_array[2] ?? '';
+                    ?>
+                    <section class="kitchen-tool-section fade-up">
+                        <h2><?php echo htmlspecialchars($kitchenTool_name); ?></h2>
+
+                        <?php if (!empty($kitchenTool_subheading)): ?>
+                            <p class="subheading"><?php echo htmlspecialchars($kitchenTool_subheading); ?></p>
+                        <?php endif; ?>
+
+                        <p><?php echo htmlspecialchars($kitchenTool_text); ?></p>
+
                         <div>
                             <picture>
-                                <source srcset="' . $small_kitchenTool_img . '" media="(max-width: 600px)">
-                                <img src="' . $kitchenTool_img . '" alt="' . htmlspecialchars(string: $kitchenTool_name) . '">
+                                <source srcset="<?php echo $small_kitchenTool_img; ?>" media="(max-width: 600px)">
+                                <img src="<?php echo $kitchenTool_img; ?>" alt="<?php echo htmlspecialchars($kitchenTool_name); ?>">
                             </picture>
-                        </div
-                    ';
-
-                    endif;
-                ?>
-            </section>
+                        </div>
+                    </section>
+                    <?php } ?>
+        </section>
             </section>
 
 
@@ -318,5 +321,9 @@
             </ul>
         </nav>
     </footer>
+
+
+    <script src="script/script.js"></script>
+
 </body>
 </html>

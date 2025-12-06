@@ -146,9 +146,7 @@
             </ul>
         </nav>
     </footer>
-    <script>
-    console.log("Inline JS is running");
-    </script>
     <script src="script/script.js"></script>
+
 </body>
 </html>

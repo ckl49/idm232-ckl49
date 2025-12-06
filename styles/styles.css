@@ -1308,7 +1308,6 @@ footer > p {
 
     .step-section {
         gap: var(--gap-large);
-        padding-top: var(--padding-xl);
     }
 
     .recipe-page-ingredients-section, .ingredients-div {

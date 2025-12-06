@@ -44,7 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // when page is loaded, grab all filters related components
-
 document.addEventListener("DOMContentLoaded", () => {
   const filterBtn = document.getElementById("filter-btn");
   
